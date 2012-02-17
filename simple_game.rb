@@ -49,15 +49,23 @@ end
 
 objects = ['WISKEY_BOTTLE', 'BUCKET', 'FROG', 'CHAIN']
 
-living_room_objects = ['WHISKEY_BOTTLE']
+living_room_objects = ['WHISKEY_BOTTLE', 'BUCKET']
 
 living_room_directions = ['WEST door to the garden', 'UPSTAIRS stairway to the ATTIC']
 
 living_room = ['You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch.', living_room_directions, living_room_objects]
 
-garden = ['You are in a beautiful GARDEN. There is a WELL in front of you', 'EAST door LIVING_ROOM']
+garden_objects = ['WELL', 'FROG', 'CHAIN']
 
-attic = ['You are in the ATTIC of the WIZARDS house.  There is a giant welding TORCH in the corner', 'Downstairs stairway LIVING_ROOM']
+garden_directions = ['EAST door LIVING_ROOM']
+
+garden = ['You are in a beautiful GARDEN.', garden_directions, garden_objects ]
+
+attic_objects = ['giant welding TORCH in the corner']
+
+attic_directions = ['DOWNSTAIRS stairway to LIVING_ROOM']
+
+attic = ['You are in the ATTIC of the WIZARDS house.', attic_directions, attic_objects]
 
 map = [living_room, garden, attic]
 
