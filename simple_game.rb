@@ -13,9 +13,12 @@
 
 def look(location)
   #if location then print description
-  p location[0]
-  p location[1]
-#  for location[1].each { |x| p x, " " }
+  print location[0], "\n"
+  location[1].each { |x| print "From here there is a #{x}\n" }
+  if location[2]
+    location[2].each { |x| print "There is a #{x} here.\n" }  
+  end
+  
 end
 
 def interpret(command,location)
@@ -48,7 +51,7 @@ objects = ['WISKEY_BOTTLE', 'BUCKET', 'FROG', 'CHAIN']
 
 living_room_objects = ['WHISKEY_BOTTLE']
 
-living_room_directions = ['WEST door garden', 'UPSTAIRS stairway to ATTIC']
+living_room_directions = ['WEST door to the garden', 'UPSTAIRS stairway to the ATTIC']
 
 living_room = ['You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch.', living_room_directions, living_room_objects]
 
