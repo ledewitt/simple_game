@@ -1,85 +1,80 @@
-#### MY NOTES ####
+#################
+### Constants ###
+#################
 
-# Objects -
-# WHISKEY_BOTTLE, BUCKET, FROG, CHAIN
+MAP = { living_room: { description: 'You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch.',
+                       exits: {upstairs: :attic, west: :garden} },
+        garden:      { description: 'You are in a beautiful GARDEN.  There is a WELL with water in it.',
+                       exits: {east: :living_room} },
+        attic:       { description: 'You are in the ATTIC of the WIZARDS house. There is a giant WELDING_TORCH in the corner.',
+                       exits: {downstairs: :living_room} } }
+INITIAL_OBJECT_LOCATIONS = { living_room: %w[WHISKEY_BOTTLE BUCKET],
+                             garden:      %w[FROG CHAIN],
+                             inventory:   [ ] }
 
-# Locations -
-# House with a LIVING_ROOM and an ATTIC
-# GARDEN
+################
+### Commands ###
+################
 
-#### METHODS ####
-
-# Need some type of way to look at a locaiton and see if an object is at this location.
-
-def look(location)
-  #if location then print description
-  print location[0], "\n"
-  location[1].each { |x| print "From here there is a #{x}\n" }
-  if location[2]
-    location[2].each { |x| print "There is a #{x} here.\n" }  
+def look(location, object_locations)
+  room = MAP[location]
+  puts room[:description]
+  room[:exits].each do |direction, room|
+    puts "You can go #{direction.upcase} to the #{room.upcase}."
   end
-  
+  object_locations[location].each do |object|
+    puts "A #{object} is here."
+  end
+  nil
 end
 
-def interpret(command,location)
-  if command == 'look'
-    look(location)
+def walk(direction, location, object_locations)
+  if destination = MAP[location][:exits][direction.to_sym]
+    look(destination, object_locations)
+    destination
+  else
+    puts "You cannot go that way."
+    nil
   end
 end
 
-def start(location)
+############
+### Game ###
+############
+
+def dispatch(command, location, object_locations)
+  words = command.split(" ")
+  case words.first
+  when "quit"
+    exit
+  when "look"
+    look(location, object_locations)
+  when "pickup"
+    
+  when "walk"
+    walk(words.last, location, object_locations)
+  else
+    
+  end
+end
+
+def introduce
   puts "Welcome to a very simple game!"
-  
-  while (command = gets.strip) != 'quit'
-    interpret(command,location)
+end
+
+def run(location, object_locations)
+  look(location, object_locations)
+  while command = gets.strip
+    location = dispatch(command, location, object_locations) || location
   end
 end
 
-# def describe_location(location) 
-#   p location[1]
-# end
+############
+### Main ###
+############
 
-# def describe_path(path)
-#   p "There is a #{path[1]} going, #{path[0]} from here"
-# end
+current_location = :living_room
+object_locations = INITIAL_OBJECT_LOCATIONS.dup
 
-#### MAIN BODY OF CODE ####
-
-# Define the games Objects, and Locations
-
-objects = ['WISKEY_BOTTLE', 'BUCKET', 'FROG', 'CHAIN']
-
-living_room_objects = ['WHISKEY_BOTTLE', 'BUCKET']
-
-living_room_directions = ['WEST door to the garden', 'UPSTAIRS stairway to the ATTIC']
-
-living_room = ['You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch.', living_room_directions, living_room_objects]
-
-garden_objects = ['WELL', 'FROG', 'CHAIN']
-
-garden_directions = ['EAST door LIVING_ROOM']
-
-garden = ['You are in a beautiful GARDEN.', garden_directions, garden_objects ]
-
-attic_objects = ['giant welding TORCH in the corner']
-
-attic_directions = ['DOWNSTAIRS stairway to LIVING_ROOM']
-
-attic = ['You are in the ATTIC of the WIZARDS house.', attic_directions, attic_objects]
-
-map = [living_room, garden, attic]
-
-object_locations = ['WHISKEY_BOTTLE LIVING_ROOM', 'BUCKET LIVING_ROOM', 'CHAIN GARDEN', 'FROG GARDEN']
-
-location = map[0]
-
-#describe_location(location)
-
-start(location)
-
-# p location[0]
-# 
-# p objects[0]
-# 
-# p map[0]
-# 
+introduce
+run(current_location, object_locations)
