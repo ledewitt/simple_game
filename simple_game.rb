@@ -18,12 +18,25 @@ def look(location)
   if location[2]
     location[2].each { |x| print "There is a #{x} here.\n" }  
   end
+end
+
+def # direction(location)
+  
+end
+
+def # get(location)
   
 end
 
 def interpret(command,location)
   if command == 'look'
     look(location)
+  end
+  if command == '' # direction
+    
+  end
+  if command == '' # get an object
+    
   end
 end
 
@@ -45,9 +58,7 @@ end
 
 #### MAIN BODY OF CODE ####
 
-# Define the games Objects, and Locations
-
-objects = ['WISKEY_BOTTLE', 'BUCKET', 'FROG', 'CHAIN']
+# Define the games Objects, Locations, and possible directions
 
 living_room_objects = ['WHISKEY_BOTTLE', 'BUCKET']
 
@@ -68,8 +79,6 @@ attic_directions = ['DOWNSTAIRS stairway to LIVING_ROOM']
 attic = ['You are in the ATTIC of the WIZARDS house.', attic_directions, attic_objects]
 
 map = [living_room, garden, attic]
-
-object_locations = ['WHISKEY_BOTTLE LIVING_ROOM', 'BUCKET LIVING_ROOM', 'CHAIN GARDEN', 'FROG GARDEN']
 
 location = map[0]
 
