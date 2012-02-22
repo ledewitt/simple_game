@@ -1,3 +1,10 @@
+### QUESTIONS: ###
+
+### Three shebangs and tab doesn't automatically create  ###
+### a text box for me.                                   ###
+
+
+
 #### MY NOTES - Attempting to level up ####
 
 ### Will keep track of what I am doing in comments       ###
@@ -9,6 +16,14 @@
 
 ### Variable soup: Section                               ###
 ### Setting up the game enviroment                       ###
+
+### Each room is an array of size three where:           ###
+### 0 index - descriptiong of the location               ###
+### 1 index - array of directions to move                ###
+### 2 index - array of objects in the room               ###
+
+### Second itereation of this design will turn these     ###
+### into hashes, third iteration will use objects        ###
 
 living_room_objects = ['WHISKEY_BOTTLE', 'BUCKET']
 
