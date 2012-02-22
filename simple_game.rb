@@ -1,11 +1,36 @@
-#### MY NOTES ####
+#### MY NOTES - Attempting to level up ####
 
-# Objects -
-# WHISKEY_BOTTLE, BUCKET, FROG, CHAIN
+### Will keep track of what I am doing in comments       ###
+### NOTE: I know this is a poor implementation of coding ###
+###       as this exercise continues I will create a     ###
+###       version using hashes and finally a version     ###
+###       that is fully object oriented in an attempt    ###
+###       to get my feet wet in Ruby programming.        ###
 
-# Locations -
-# House with a LIVING_ROOM and an ATTIC
-# GARDEN
+### Variable soup: Section                               ###
+### Setting up the game enviroment                       ###
+
+living_room_objects = ['WHISKEY_BOTTLE', 'BUCKET']
+
+living_room_directions = ['WEST door to the garden', 'UPSTAIRS stairway to the ATTIC']
+
+living_room = ['You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch.', living_room_directions, living_room_objects]
+
+garden_objects = ['WELL', 'FROG', 'CHAIN']
+
+garden_directions = ['EAST door LIVING_ROOM']
+
+garden = ['You are in a beautiful GARDEN.', garden_directions, garden_objects ]
+
+attic_objects = ['giant welding TORCH in the corner']
+
+attic_directions = ['DOWNSTAIRS stairway to LIVING_ROOM']
+
+attic = ['You are in the ATTIC of the WIZARDS house.', attic_directions, attic_objects]
+
+map = [living_room, garden, attic]
+
+location = map[0]
 
 #### METHODS ####
 
@@ -60,29 +85,7 @@ end
 
 # Define the games Objects, Locations, and possible directions
 
-living_room_objects = ['WHISKEY_BOTTLE', 'BUCKET']
 
-living_room_directions = ['WEST door to the garden', 'UPSTAIRS stairway to the ATTIC']
-
-living_room = ['You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch.', living_room_directions, living_room_objects]
-
-garden_objects = ['WELL', 'FROG', 'CHAIN']
-
-garden_directions = ['EAST door LIVING_ROOM']
-
-garden = ['You are in a beautiful GARDEN.', garden_directions, garden_objects ]
-
-attic_objects = ['giant welding TORCH in the corner']
-
-attic_directions = ['DOWNSTAIRS stairway to LIVING_ROOM']
-
-attic = ['You are in the ATTIC of the WIZARDS house.', attic_directions, attic_objects]
-
-map = [living_room, garden, attic]
-
-location = map[0]
-
-#describe_location(location)
 
 start(location)
 
