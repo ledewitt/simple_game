@@ -28,19 +28,19 @@ living_room_objects = ['WHISKEY_BOTTLE', 'BUCKET']
 
 living_room_directions = ['WEST door to the garden', 'UPSTAIRS stairway to the ATTIC']
 
-living_room = ['You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch.', living_room_directions, living_room_objects]
+living_room = [:living_room, 'You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch.', living_room_directions, living_room_objects]
 
 garden_objects = ['WELL', 'FROG', 'CHAIN']
 
 garden_directions = ['EAST door LIVING_ROOM']
 
-garden = ['You are in a beautiful GARDEN.', garden_directions, garden_objects ]
+garden = [:garden, 'You are in a beautiful GARDEN.', garden_directions, garden_objects ]
 
 attic_objects = ['giant welding TORCH in the corner']
 
 attic_directions = ['DOWNSTAIRS stairway to LIVING_ROOM']
 
-attic = ['You are in the ATTIC of the WIZARDS house.', attic_directions, attic_objects]
+attic = [:attic, 'You are in the ATTIC of the WIZARDS house.', attic_directions, attic_objects]
 
 map = [living_room, garden, attic]
 
@@ -52,16 +52,17 @@ location = map[0]
 
 def look(location)
   #if location then print description
-  puts location[0]
-  location[1].each { |x| puts "From here there is a #{x}" }
-  if location[2]
-    location[2].each { |x| puts "There is a #{x} here." }
+  puts location[1]
+  location[2].each { |x| puts "From here there is a #{x}" }
+  if location[3]
+    location[3].each { |x| puts "There is a #{x} here." }
   end
 end
 
 def walk(location, direction)
-  case location
-  when 'living_room'
+  puts location[0]
+  case location[0]
+  when :living_room
     if direction == 'upstairs'
       look(map[2])
       location = map[2]
@@ -92,7 +93,7 @@ end
 def interpret(command,location)
   words = command.split(" ")
   case words.first
-  when ('quit' || 'exit')
+  when 'quit' || 'exit'
     exit
   when 'look'
     look(location)
