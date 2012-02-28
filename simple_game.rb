@@ -63,7 +63,7 @@ def look(location)
 end
 
 def walk(location, direction, map)
-  puts location[0]  # Not needed debugging stuff erase when done.
+  # puts location[0]  # Not needed debugging stuff erase when done.
   case location[0]
   when :living_room
     if direction == 'upstairs'
@@ -72,20 +72,27 @@ def walk(location, direction, map)
     end
     if direction == 'west'
       look(map[1])
-      loctioin = map[1]
+      return map[1]
     end
+    puts "You can't go #{direction}."
+    return location
   when :attic
     if direction == 'downstairs'
       look(map[0])
-      location = map[0]
+      return map[0]
     end
+    puts "You can't go #{direction}."
+    return location
   when :garden
     if direction == 'east'
       look(map[0])
-      location = map[0]
+      return map[0]
     end
+    puts "You can't go #{direction}."
+    return location
   else
     puts 'You can not walk that way'
+    return location
   end
 end
 
@@ -126,6 +133,7 @@ def interpret(command, location, map)
     location
   else
     puts 'I do not recognize that command'
+    location
   end
 end
 
