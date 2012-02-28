@@ -92,11 +92,18 @@ end
 # If you are going to pick something up I need to make sure it is in
 # the current location and then add it to your inventory.
 
+# Incorporate the following changes to make it clean.
+# Good rule of thumb 'Never modify a collection while iterating.
+
+# if picked_up = location[3].delete(object.upcase)
+# ...
+# end
+
 def pickup(object, location)
    location[3].each do |obj_in_room|
      if obj_in_room == object.upcase
        Inventory << object.upcase
-       delete obj_in_room
+       location[3].delete(obj_in_room)
      end
    end 
    puts "You have picked up the #{Inventory.last}."
@@ -114,6 +121,9 @@ def interpret(command, location, map)
     location = pickup(words.last, location)
   when 'walk'
     location = walk(location, words.last, map)
+  when 'inventory'
+    puts Inventory
+    location
   else
     puts 'I do not recognize that command'
   end
