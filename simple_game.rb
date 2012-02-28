@@ -57,26 +57,27 @@ def look(location)
   if location[3]
     location[3].each { |x| puts "There is a #{x} here." }
   end
+  location
 end
 
-def walk(location, direction)
-  puts location[0]
+def walk(location, direction, map)
+  puts location[0]  # Not needed debugging stuff erase when done.
   case location[0]
   when :living_room
     if direction == 'upstairs'
       look(map[2])
-      location = map[2]
+      return map[2]
     end
     if direction == 'west'
       look(map[1])
       loctioin = map[1]
     end
-  when 'attic'
+  when :attic
     if direction == 'downstairs'
       look(map[0])
       location = map[0]
     end
-  when 'garden'
+  when :garden
     if direction == 'east'
       look(map[0])
       location = map[0]
@@ -90,7 +91,7 @@ end
 #   
 # end
 
-def interpret(command,location)
+def interpret(command, location, map)
   words = command.split(" ")
   case words.first
   when 'quit' || 'exit'
@@ -100,17 +101,17 @@ def interpret(command,location)
   when 'pikcup'
   
   when 'walk'
-    walk(location, words.last)
+    location = walk(location, words.last, map)
   else
     puts 'I do not recognize that command'
   end
 end
 
-def start(location)
+def start(location, map)
   puts "Welcome to a very simple game!"
-  
+  look(location)
   while command = gets.strip
-    interpret(command,location)
+    location = interpret(command, location, map)
   end
 end
 
@@ -126,7 +127,7 @@ end
 
 # Define the games Objects, Locations, and possible directions
 
-start(location)
+start(location, map)
 
 # p location[0]
 # 
