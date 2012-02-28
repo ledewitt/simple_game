@@ -46,6 +46,8 @@ map = [living_room, garden, attic]
 
 location = map[0]
 
+Inventory = [ ]
+
 #### METHODS ####
 
 # Need some type of way to look at a locaiton and see if an object is at this location.
@@ -87,19 +89,29 @@ def walk(location, direction, map)
   end
 end
 
-# def # get()
-#   
-# end
+# If you are going to pick something up I need to make sure it is in
+# the current location and then add it to your inventory.
+
+def pickup(object, location)
+   location[3].each do |obj_in_room|
+     if obj_in_room == object.upcase
+       Inventory << object.upcase
+       delete obj_in_room
+     end
+   end 
+   puts "You have picked up the #{Inventory.last}."
+   location
+end
 
 def interpret(command, location, map)
   words = command.split(" ")
   case words.first
-  when 'quit' || 'exit'
+  when "quit", "exit"
     exit
   when 'look'
     look(location)
-  when 'pikcup'
-  
+  when 'pickup'
+    location = pickup(words.last, location)
   when 'walk'
     location = walk(location, words.last, map)
   else
