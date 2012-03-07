@@ -3,7 +3,7 @@
 ### Three hashes and tab doesn't automatically create      ###
 ### a text box for me.                                     ###
 
-#### MY NOTES - Attempting to level up ####
+###      MY NOTES - Attempting to level up                 ###
 
 ### Will keep track of what I am doing in comments         ###
 ### NOTE: I know this is a poor implementation of coding   ###
@@ -63,7 +63,6 @@ def look(location)
 end
 
 def walk(location, direction, map)
-  # puts location[0]  # Not needed debugging stuff erase when done.
   case location[0]
   when :living_room
     if direction == 'upstairs'
@@ -92,10 +91,46 @@ def walk(location, direction, map)
     return location
   else
     puts 'You can not walk that way'
-    return location
+    return location[3]
   end
 end
 
+def dunk(location)
+  if location[0] == :garden && Inventory.include?("CHAINED_BUCKET")
+    puts "You now have a FULL_CHAINED_BUCKET"
+    Inventory << "FULL_CHAINED_BUCKET"
+    Inventory.delete("CHAINED_BUCKET")
+  elsif location[0] == :garden
+    puts "You have nothing to dunk in the well"
+  else
+    puts "You can't dunk here"
+  end
+  return location
+end
+
+def weld (location)
+  if location[0] == :attic && Inventory.include?("BUCKET") && Inventory.include?("CHAIN")
+    puts "You now have have a CHAINED_BUCKET"
+    Inventory << "CHAINED_BUCKET"
+    Inventory.delete("BUCKET")
+    Inventory.delete("CHAIN")
+  else
+    puts "Nothing to weld with you knuckle head"
+  end
+  return location
+end
+
+def splash(location)
+  if location[0] == :living_room && Inventory.include?("FULL_CHAINED_BUCKET")
+    puts "The wizard awakens from his slumber and greets you warmly.  He hands you the magic low-carb donut you win! THE END"
+  elsif location[0] == :living_room
+    puts "You have nothing to splash the wizard with."
+  else
+    puts "You can't splash here."
+  end
+  return location
+end   
+    
 # If you are going to pick something up I need to make sure it is in
 # the current location and then add it to your inventory.
 
@@ -105,6 +140,10 @@ end
 # if picked_up = location[3].delete(object.upcase)
 # ...
 # end
+
+def my_inventory()
+  puts Inventory
+end
 
 def pickup(object, location)
    location[3].each do |obj_in_room|
@@ -124,12 +163,21 @@ def interpret(command, location, map)
     exit
   when 'look'
     look(location)
-  when 'pickup'
+  when 'pickup', 'get'
     location = pickup(words.last, location)
   when 'walk'
     location = walk(location, words.last, map)
   when 'inventory'
-    puts Inventory
+    my_inventory
+    location
+  when 'dunk'
+    dunk(location)
+    location
+  when 'weld'
+    weld(location)
+    location
+  when 'splash'
+    splash(location)
     location
   else
     puts 'I do not recognize that command'
