@@ -1,0 +1,13 @@
+3
+living_room
+"You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch."
+"WEST door to the garden", "UPSTAIRS stairway to the ATTIC"
+"WHISKEY_BOTTLE", "BUCKET"
+garden
+"You are in a beautiful GARDEN."
+"EAST door LIVING_ROOM"
+"WELL", "FROG", "CHAIN"
+attic
+"You are in the ATTIC of the WIZARDS house. There is a giant welding TORCH in the corner"
+"DOWNSTAIRS stairway to LIVING_ROOM"
+""
