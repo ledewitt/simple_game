@@ -6,13 +6,16 @@ class World
   
   def initialize
     @map = [ ]
+    @location = [ ]
     open("world.dat") do |f|
       @numb_locations = f.gets.to_i
       p @numb_locations
       @numb_locations.times do |loc|
         4.times do
-          @map << f.gets.strip
+          @location << f.gets.strip
         end
+      @map << @location
+      @location = [ ]
       end
     end
   end
@@ -26,4 +29,6 @@ end
 
 world = World.new()
 
-p world.map[1]
+puts world.map
+
+p world.map
