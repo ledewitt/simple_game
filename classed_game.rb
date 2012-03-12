@@ -17,11 +17,13 @@ class World
     end
   end
   
-  
+  attr_reader :map
+  def map
+    @map
+  end
   
 end
 
-map = World.new()
-p map
+world = World.new()
 
-p @map[1]
+p world.map[1]
