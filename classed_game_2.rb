@@ -13,8 +13,12 @@ class Player
   
   def look
     puts @location.description
-    puts @location.objects
+    # puts @location.objects[0]
+    # puts Array(@location.objects).map { |o| "There is a #{o}." }.join("  ")
+    # puts @location.objects.split(/,\s*/).map { |o| "There is a #{o}." }.join("  ")
     puts @location.exits
+    @location.objects.each { |x| puts "There is a #{x} here."}
+    p @location.objects.class
   end
 end
 
@@ -24,7 +28,7 @@ class Location # Set up what I need for a location
   def initialize(name, description, objects, exits)
     @name        = name
     @description = description
-    @objects     = objects
+    @objects     = objects.split(/,\s*/)
     @exits       = exits
   end
 end
@@ -70,7 +74,7 @@ end
 
 world = World.new
 # puts world.locations.find { |l| l.name == "garden" }
-# puts world.locations
+# puts world.locations.name
 
 bob = Player.new(world)
 bob.look
