@@ -1,0 +1,14 @@
+NAME: living room
+DESCRIPTION: You are in the LIVING_ROOM of a wizards house.  There is a wizard snoring loudly on the couch.
+OBJECTS: Whiskey Bottle, Chain
+EXITS: WEST door to the garden, UPSTAIRS stairway to the ATTIC
+
+NAME: garden
+DESCRIPTION: You are in a beautiful GARDEN.
+OBJECTS: Well, Frog, Chain
+EXITS: EAST door LIVING_ROOM
+
+NAME: attic
+DESCRIPTION: You are in the ATTIC of the WIZARDS house. There is a giant welding TORCH in the corner.
+OBJECTS: DOWNSTAIRS stairway to LIVING_ROOM
+EXITS: 
