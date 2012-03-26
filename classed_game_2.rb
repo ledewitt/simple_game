@@ -8,7 +8,8 @@
 # end
 class Player
   def initialize(world)
-    @location = world.locations.find { |l| l.name == "living room" }
+    @location = world.locations.find { |l| l.name == "LIVING ROOM" }
+    @inventory = ["BELLY LINT"]
   end
   
   def look
@@ -16,9 +17,61 @@ class Player
     # puts @location.objects[0]
     # puts Array(@location.objects).map { |o| "There is a #{o}." }.join("  ")
     # puts @location.objects.split(/,\s*/).map { |o| "There is a #{o}." }.join("  ")
-    puts @location.exits
     @location.objects.each { |x| puts "There is a #{x} here."}
-    p @location.objects.class
+    @location.exits.each { |x| puts "From here there is a #{x}."}
+    # p @location.objects.class
+  end
+  
+  def pickup(object)
+    @location.objects.each do |obj_in_room|
+      if obj_in_room == object.upcase
+        @inventory << object.upcase
+        @location.objects.delete(obj_in_room)
+      end
+    end
+  end
+  
+  def walk(direction)
+    # Change Bob's location on the world object
+    p @location.exits.each
+    
+    case @location.name
+    when 'LIVING ROOM'
+      if direction == 'upstairs'
+        @location = location.find { |l| l.name == "ATTIC" }
+        # @location = world.locations.find { |l| l.name == "ATTIC"}
+      end
+      if direction == 'west'
+        @location = locations.find { |l| l.name == "GARDEN"}
+      end
+    when 'ATTIC'
+      
+    when 'GARDEN'
+      
+    else
+      puts 'You can not walk that way'
+    end
+    
+  end
+  
+  def inventory
+    # Inventory still need to create the array for inventory
+    puts @inventory
+  end
+  
+  def dunk
+    # Only if you have a chained bucket and are in the garden location
+    puts "You can't dunk here your not MJ"
+  end
+  
+  def weld
+    # Only if you have the chain and bucket and are in the attic
+    puts "Only if you have a torch"
+  end
+  
+  def splash
+    # Only if you have a full bucket and are in the living room
+    puts "I wouldn't if I were you"
   end
 end
 
@@ -29,7 +82,7 @@ class Location # Set up what I need for a location
     @name        = name
     @description = description
     @objects     = objects.split(/,\s*/)
-    @exits       = exits
+    @exits       = exits.split(/,\s*/)
   end
 end
 
@@ -64,17 +117,44 @@ class World
     objects = location['objects']
     exits = location['exits']
     
-    # p location # debugging code to be deleted later
-    
     # raise "name, description and object are required" unless name and description and objects
                                                              
     @locations << Location.new(name, description, objects, exits)
   end
 end                                                             
 
-world = World.new
-# puts world.locations.find { |l| l.name == "garden" }
-# puts world.locations.name
+def interpret(command, bob)
+  words = command.split(" ")
+  case words.first
+  when 'quit', 'exit'
+    exit
+  when 'look'
+    bob.look
+  when 'pickup', 'get'
+    bob.pickup(words.last)
+  when 'walk', 'run'
+    bob.walk(words.last)
+  when 'inventory'
+    bob.inventory
+  when 'dunk'
+    bob.dunk
+  when 'weld'
+    bob.weld
+  when 'splash'
+    bob.splash
+  else
+    puts 'I do not recognize that command'
+  end
+end
 
-bob = Player.new(world)
-bob.look
+def start
+    puts "Would you like to play a game?"
+    world = World.new
+    bob = Player.new(world)
+    bob.look
+    while command = gets.strip
+      interpret(command, bob)
+    end
+end
+
+start
